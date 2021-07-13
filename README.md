@@ -10,9 +10,9 @@ Kotlin Lib to build bots in JDA.
 ```
 ```xml
 <dependency>
+    <groupId>com.github.VitorBlog</groupId>
     <artifactId>JDALib</artifactId>
-    <groupId>dev.vitorpaulo</groupId>
-    <version>1.0</version>
+    <version>0ec2d540de</version>
 </dependency>
 ```
 
