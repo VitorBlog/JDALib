@@ -35,11 +35,20 @@ object Bot {
 
             reply("test", actionRow = arrayOf(
                 ActionRow.of(
-                    Button.primary("${user.id}:hello", "Hello?").callback {
+                    Button.primary("${user.id}:hello", "Hello?").callback { buttonEvent ->
 
-                        it.deferEdit().queue()
+                        buttonEvent.deferEdit().queue()
+                        buttonEvent.message?.delete()?.queue()
 
-                        it.message?.editMessage("hello :)")?.queue()
+                        reply("What's your name?")
+
+                        UserPrompt.Builder(user, channel)
+                            .validator { !it.contentRaw.startsWith("Gabriel") }
+                            .invalidCallback { reply("That's an invalid name.") }
+                            .addCancelSequence("cancel")
+                            .canceledCallback { reply("Bye!") }
+                            .successCallback { reply("Hello, ${it.contentRaw.safeString()}!") }
+                            .queue()
 
                     }
                 )
