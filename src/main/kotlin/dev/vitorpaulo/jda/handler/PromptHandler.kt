@@ -22,7 +22,6 @@ class PromptHandler : ListenerAdapter() {
 
         if (!prompt.validator.invoke(event.message)) {
 
-            PromptDao.remove(prompt.id)
             prompt.invalidCallback?.accept(event.message)
             return
 
