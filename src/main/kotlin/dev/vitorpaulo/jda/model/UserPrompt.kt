@@ -9,7 +9,7 @@ import java.util.function.Consumer
 class UserPrompt(val user: User, val textChannel: TextChannel) {
 
     val id = "${user.id}:${textChannel.id}"
-    var validator: (String) -> Boolean = { true }
+    var validator: (Message) -> Boolean = { true }
     var cancelSequences = arrayListOf<String>()
     var invalidCallback: Consumer<Message>? = null
     var canceledCallback: Consumer<Message>? = null
@@ -19,7 +19,7 @@ class UserPrompt(val user: User, val textChannel: TextChannel) {
 
         private val prompt = UserPrompt(user, textChannel)
 
-        fun validator(validator: (String) -> Boolean) = apply { prompt.validator = validator; return this }
+        fun validator(validator: (Message) -> Boolean) = apply { prompt.validator = validator; return this }
 
         fun addCancelSequence(string: String) = apply { prompt.cancelSequences.add(string); return this }
 
