@@ -1,5 +1,6 @@
 package dev.vitorpaulo.jda.model
 
+import dev.vitorpaulo.jda.dao.PromptDao
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.entities.TextChannel
 import net.dv8tion.jda.api.entities.User
@@ -28,7 +29,7 @@ class UserPrompt(val user: User, val textChannel: TextChannel) {
 
     fun queue() {
 
-
+        PromptDao.add(this)
 
     }
 
