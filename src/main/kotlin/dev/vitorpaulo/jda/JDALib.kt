@@ -3,6 +3,7 @@ package dev.vitorpaulo.jda
 import dev.vitorpaulo.jda.handler.ButtonHandler
 import dev.vitorpaulo.jda.handler.CommandHandler
 import dev.vitorpaulo.jda.handler.EmoteHandler
+import dev.vitorpaulo.jda.handler.PromptHandler
 import dev.vitorpaulo.jda.process.CommandProcess
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
@@ -27,6 +28,7 @@ object JDALib {
             .addEventListeners(CommandHandler())
             .addEventListeners(ButtonHandler())
             .addEventListeners(EmoteHandler())
+            .addEventListeners(PromptHandler())
 
         CommandProcess.load()
 
