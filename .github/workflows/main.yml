@@ -1,4 +1,4 @@
-name: Maven Test Build
+name: JDALib Workflow
 
 on:
   push:
@@ -20,3 +20,15 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: mvn -B package --file pom.xml
+  Release:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Create a Release
+        uses: elgohr/Github-Release-Action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        with:
+          args: Release
