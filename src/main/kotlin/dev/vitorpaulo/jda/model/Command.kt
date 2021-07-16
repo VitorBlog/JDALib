@@ -1,14 +1,16 @@
 package dev.vitorpaulo.jda.model
 
-import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.MessageBuilder
 import net.dv8tion.jda.api.entities.*
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
+import net.dv8tion.jda.api.interactions.commands.build.CommandData
 import net.dv8tion.jda.api.interactions.components.ActionRow
 import java.io.File
 import java.util.function.Consumer
 
-open class Command {
+open class Command(
+    val slashCommand: CommandData? = null
+) {
 
     lateinit var user: User
     lateinit var message: Message
