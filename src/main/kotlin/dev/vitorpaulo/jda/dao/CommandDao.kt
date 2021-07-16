@@ -1,21 +1,30 @@
 package dev.vitorpaulo.jda.dao
 
+import dev.vitorpaulo.jda.JDALib
 import dev.vitorpaulo.jda.model.Command
 import dev.vitorpaulo.jda.model.CommandContext
 import dev.vitorpaulo.jda.model.CommandInfo
 
 object CommandDao {
 
-    private val COMMANDS = arrayListOf<CommandContext>()
+    internal val COMMANDS = arrayListOf<CommandContext>()
 
-    operator fun get(string: String) = COMMANDS.firstOrNull { it.checkAliases(string.lowercase()) }
+    operator fun get(string: String, slash: Boolean = false) =
+        COMMANDS.firstOrNull {
+            (!slash && it.checkAliases(string))
+                    || (slash && it.slashCommand?.name?.equals(string, true) == true)
+        }
 
-    fun add(command: Command) {
+    internal fun add(command: Command) {
 
-        val annotation = command::class.java.annotations.firstOrNull() ?: return
-        if (annotation !is CommandInfo) return
+        val annotation = (command::class.java.annotations.firstOrNull { it is CommandInfo } ?: return) as CommandInfo
 
-        COMMANDS.add(CommandContext(annotation, command))
+        COMMANDS.add(
+            CommandContext(
+                annotation,
+                command
+            )
+        )
 
     }
 

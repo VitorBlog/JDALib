@@ -1,9 +1,7 @@
 package dev.vitorpaulo.jda
 
-import dev.vitorpaulo.jda.handler.ButtonHandler
-import dev.vitorpaulo.jda.handler.CommandHandler
-import dev.vitorpaulo.jda.handler.EmoteHandler
-import dev.vitorpaulo.jda.handler.PromptHandler
+import dev.vitorpaulo.jda.dao.CommandDao
+import dev.vitorpaulo.jda.handler.*
 import dev.vitorpaulo.jda.process.CommandProcess
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
@@ -29,6 +27,7 @@ object JDALib {
             .addEventListeners(ButtonHandler())
             .addEventListeners(EmoteHandler())
             .addEventListeners(PromptHandler())
+            .addEventListeners(SlashCommandHandler())
 
         CommandProcess.load()
 
@@ -81,6 +80,16 @@ object JDALib {
     fun build(): JDA {
 
         JDA = builder.build().awaitReady()
+
+        val commandList = JDA.updateCommands()
+
+        CommandDao.COMMANDS.filter { it.slashCommand != null }.forEach { command ->
+            println(command.slashCommand?.name)
+            commandList.addCommands(command.slashCommand)
+        }
+
+        commandList.queue()
+
         return JDA
 
     }
