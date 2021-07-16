@@ -2,6 +2,8 @@ package dev.vitorpaulo.jda.model
 
 import net.dv8tion.jda.api.MessageBuilder
 import net.dv8tion.jda.api.entities.*
+import net.dv8tion.jda.api.events.Event
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.api.interactions.commands.build.CommandData
 import net.dv8tion.jda.api.interactions.components.ActionRow
@@ -17,7 +19,8 @@ open class Command(
     lateinit var arguments: Array<String>
     lateinit var channel: TextChannel
     lateinit var guild: Guild
-    lateinit var event: GuildMessageReceivedEvent
+    lateinit var event: Event
+    private var useSlash = false
 
     open fun execute() {}
 
@@ -28,7 +31,6 @@ open class Command(
         vararg actionRow: ActionRow = arrayOf(),
         success: Consumer<Message> = Consumer { },
         error: Consumer<Throwable> = Consumer {
-            reply(":dizzy_face: An error occurred.")
             it.printStackTrace()
         }
     ) {
@@ -40,7 +42,9 @@ open class Command(
 
         messageBuilder.setActionRows(actionRow.toList())
 
-        val action = replaceMessage?.editMessage(messageBuilder.build()) ?: message.reply(messageBuilder.build())
+        val action = replaceMessage?.editMessage(messageBuilder.build())
+            ?: if (useSlash) channel.sendMessage(messageBuilder.build())
+            else message.reply(messageBuilder.build())
 
         if (file != null) action.addFile(file)
 
@@ -56,6 +60,19 @@ open class Command(
         this.guild = event.guild
         this.event = event
         this.arguments = event.message.contentRaw.split(" ").toTypedArray().let { it.copyOfRange(1, it.size) }
+
+        return this
+
+    }
+
+    fun setup(arguments: Array<String>, event: SlashCommandEvent): Command {
+
+        this.user = event.user
+        this.channel = event.textChannel
+        this.guild = event.guild!!
+        this.event = event
+        this.arguments = arguments
+        this.useSlash = true
 
         return this
 
