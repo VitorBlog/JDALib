@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.api.interactions.commands.build.CommandData
 import net.dv8tion.jda.api.interactions.components.ActionRow
+import net.dv8tion.jda.api.requests.restaction.MessageAction
 import java.io.File
 import java.util.function.Consumer
 
@@ -43,12 +44,12 @@ open class Command(
         messageBuilder.setActionRows(actionRow.toList())
 
         val action = replaceMessage?.editMessage(messageBuilder.build())
-            ?: if (useSlash) channel.sendMessage(messageBuilder.build())
+            ?: if (useSlash) (event as SlashCommandEvent).reply(messageBuilder.build())
             else message.reply(messageBuilder.build())
 
-        if (file != null) action.addFile(file)
+        if (file != null && action is MessageAction) action.addFile(file)
 
-        action.queue(success, error)
+        if (action is MessageAction) action.queue(success, error) else action.queue({}, error)
 
     }
 
