@@ -6,14 +6,21 @@ import net.dv8tion.jda.api.entities.TextChannel
 import net.dv8tion.jda.api.entities.User
 import java.util.function.Consumer
 
-class UserPrompt(val user: User, val textChannel: TextChannel) {
+open class UserPrompt(val user: User, val textChannel: TextChannel) {
 
     val id = "${user.id}:${textChannel.id}"
-    var validator: (Message) -> Boolean = { true }
-    var cancelSequences = arrayListOf<String>()
-    var invalidCallback: Consumer<Message>? = null
-    var canceledCallback: Consumer<Message>? = null
-    var successCallback: Consumer<Message>? = null
+    open var validator: (Message) -> Boolean = { true }
+    open var cancelSequences = arrayListOf<String>()
+    open var invalidCallback: Consumer<Message>? = null
+    open var canceledCallback: Consumer<Message>? = null
+    open var successCallback: Consumer<Message>? = null
+
+    fun queue(): UserPrompt {
+
+        PromptDao.add(this)
+        return this
+
+    }
 
     class Builder(user: User, textChannel: TextChannel) {
 
