@@ -12,7 +12,7 @@ Kotlin Lib to build bots in JDA.
 <dependency>
     <groupId>com.github.VitorBlog</groupId>
     <artifactId>JDALib</artifactId>
-    <version>-331ae962a3-1</version>
+    <version>61b39c6a50</version>
 </dependency>
 ```
 
