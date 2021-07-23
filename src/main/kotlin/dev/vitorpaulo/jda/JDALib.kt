@@ -2,6 +2,7 @@ package dev.vitorpaulo.jda
 
 import dev.vitorpaulo.jda.dao.CommandDao
 import dev.vitorpaulo.jda.handler.*
+import dev.vitorpaulo.jda.model.Command
 import dev.vitorpaulo.jda.process.CommandProcess
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
@@ -38,6 +39,13 @@ object JDALib {
     fun addEventListener(listener: ListenerAdapter): JDALib {
 
         builder.addEventListeners(listener)
+        return this
+
+    }
+
+    fun addCommand(command: Command): JDALib {
+
+        CommandDao.add(command)
         return this
 
     }
