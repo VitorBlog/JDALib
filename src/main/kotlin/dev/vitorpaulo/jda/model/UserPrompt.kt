@@ -2,13 +2,13 @@ package dev.vitorpaulo.jda.model
 
 import dev.vitorpaulo.jda.dao.PromptDao
 import net.dv8tion.jda.api.entities.Message
-import net.dv8tion.jda.api.entities.TextChannel
+import net.dv8tion.jda.api.entities.MessageChannel
 import net.dv8tion.jda.api.entities.User
 import java.util.function.Consumer
 
-open class UserPrompt(val user: User, val textChannel: TextChannel) {
+open class UserPrompt(val user: User, val channel: MessageChannel) {
 
-    val id = "${user.id}:${textChannel.id}"
+    val id = "${user.id}:${channel.id}"
     open var validator: (Message) -> Boolean = { true }
     open var cancelSequences = arrayListOf<String>()
     open var invalidCallback: Consumer<Message>? = null
@@ -22,9 +22,9 @@ open class UserPrompt(val user: User, val textChannel: TextChannel) {
 
     }
 
-    class Builder(user: User, textChannel: TextChannel) {
+    class Builder(user: User, channel: MessageChannel) {
 
-        private val prompt = UserPrompt(user, textChannel)
+        private val prompt = UserPrompt(user, channel)
 
         fun validator(validator: (Message) -> Boolean) = apply { prompt.validator = validator; return this }
 
