@@ -12,7 +12,7 @@ Kotlin Lib to build bots in JDA.
 <dependency>
     <groupId>com.github.VitorBlog</groupId>
     <artifactId>JDALib</artifactId>
-    <version>5fb8500dc1</version>
+    <version>c1e127912d</version>
 </dependency>
 ```
 
@@ -117,4 +117,13 @@ class SlashTestCommand: Command(
     }
 
 }
+```
+
+### Open Private Channel
+```kotlin
+reply("Hello guild!")
+
+openPrivateChannel()
+
+reply("Hello DM!")
 ```
