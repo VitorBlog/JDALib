@@ -84,7 +84,6 @@ object JDALib {
         val commandList = JDA.updateCommands()
 
         CommandDao.COMMANDS.filter { it.slashCommand != null }.forEach { command ->
-            println(command.slashCommand?.name)
             commandList.addCommands(command.slashCommand)
         }
 
