@@ -18,7 +18,7 @@ open class Command(
     lateinit var user: User
     lateinit var message: Message
     lateinit var arguments: Array<String>
-    lateinit var channel: TextChannel
+    lateinit var channel: MessageChannel
     lateinit var guild: Guild
     lateinit var event: Event
     private var useSlash = false
@@ -43,9 +43,12 @@ open class Command(
 
         messageBuilder.setActionRows(actionRow.toList())
 
-        val action = replaceMessage?.editMessage(messageBuilder.build())
-            ?: if (useSlash) (event as SlashCommandEvent).reply(messageBuilder.build())
-            else message.reply(messageBuilder.build())
+        val action = when {
+            replaceMessage != null -> replaceMessage.editMessage(messageBuilder.build())
+            useSlash -> (event as SlashCommandEvent).reply(messageBuilder.build())
+            channel.type == ChannelType.PRIVATE -> channel.sendMessage(messageBuilder.build())
+            else -> message.reply(messageBuilder.build())
+        }
 
         if (file != null && action is MessageAction) action.addFile(file)
 
@@ -63,6 +66,12 @@ open class Command(
         this.arguments = event.message.contentRaw.split(" ").toTypedArray().let { it.copyOfRange(1, it.size) }
 
         return this
+
+    }
+
+    fun openPrivateChannel() {
+
+        channel = user.openPrivateChannel().complete()
 
     }
 
