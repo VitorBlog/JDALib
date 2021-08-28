@@ -18,8 +18,8 @@ open class HttpRequest(
     fun addHeader(key: String, value: Any?): HttpRequest { headers[key] = value.toString(); return this }
 
     fun setContent(value: Any?): HttpRequest { content = value.toString(); return this }
-    
-    fun send(success: Consumer<String>? = null, error: Consumer<Exception>? = null) {
+
+    fun send(success: Consumer<String>?, error: Consumer<Exception>?) {
 
         Thread {
 
@@ -68,7 +68,7 @@ open class HttpRequest(
     fun get(success: Consumer<String>) = get(success, null)
     fun post(success: Consumer<String>) = post(success, null)
     fun send(success: Consumer<String>) = send(success, null)
-    fun get(success: Consumer<String>? = null, error: Consumer<Exception>? = null) { method = Method.GET; send(success, error) }
-    fun post(success: Consumer<String>? = null, error: Consumer<Exception>? = null) { method = Method.POST; send(success, error) }
+    fun get(success: Consumer<String>?, error: Consumer<Exception>?) { method = Method.GET; send(success, error) }
+    fun post(success: Consumer<String>?, error: Consumer<Exception>?) { method = Method.POST; send(success, error) }
 
 }
