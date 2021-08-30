@@ -8,7 +8,8 @@ open class HttpRequest(
     val url: String,
     var method: Method = Method.GET,
     val headers: HashMap<String, String> = hashMapOf(),
-    var content: Any? = null
+    var content: Any? = null,
+    var join: Boolean = false
 ) {
 
     fun setUserAgent(
@@ -19,9 +20,11 @@ open class HttpRequest(
 
     fun setContent(value: Any?): HttpRequest { content = value.toString(); return this }
 
+    fun join(): HttpRequest { join = true; return this }
+
     fun send(success: Consumer<String>?, error: Consumer<Exception>?) {
 
-        Thread {
+        val thread = Thread {
 
             try {
 
@@ -46,7 +49,10 @@ open class HttpRequest(
 
             }
 
-        }.start()
+        }
+
+        thread.start()
+        if (join) thread.join()
 
     }
 
