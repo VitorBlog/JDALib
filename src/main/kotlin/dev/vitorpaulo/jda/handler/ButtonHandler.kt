@@ -9,9 +9,9 @@ class ButtonHandler : ListenerAdapter() {
     override
     fun onButtonClick(event: ButtonClickEvent) {
 
-        val split = (event.button?.id ?: "" ).split(":")
+        val split = (event.button?.id ?: "").split(":")
 
-        if (event.user.isBot || event.user.id != split[0]) return
+        if (event.user.isBot || (event.user.id != split[0] && (event.button?.id ?: "").contains(":"))) return
 
         ButtonDao[event.button?.id ?: ""]?.accept(event)
 
