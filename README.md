@@ -5,8 +5,9 @@ Kotlin Lib to build bots in JDA.
 Repository:
 ```xml
 <repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
+    <id>VitorPaulo</id>
+    <name>Vitor Paulo Repository</name>
+    <url>https://repository.vitorpaulo.dev/releases</url>
 </repository>
 ```
 Dependency: [Click Here](https://repository.vitorpaulo.dev/#/releases/dev/vitorpaulo/JDALib/)
