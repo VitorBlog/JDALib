@@ -2,17 +2,19 @@
 Kotlin Lib to build bots in JDA.
 
 # Download
+Repository:
 ```xml
 <repository>
     <id>jitpack.io</id>
     <url>https://jitpack.io</url>
 </repository>
 ```
+Dependency: [Click Here](https://repository.vitorpaulo.dev/#/releases/dev/vitorpaulo/JDALib/)
 ```xml
 <dependency>
-    <groupId>com.github.VitorBlog</groupId>
+    <groupId>dev.vitorpaulo</groupId>
     <artifactId>JDALib</artifactId>
-    <version>c1e127912d</version>
+    <version>VERSION</version>
 </dependency>
 ```
 

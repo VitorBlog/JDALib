@@ -6,7 +6,7 @@
 
     <artifactId>JDALib</artifactId>
     <groupId>dev.vitorpaulo</groupId>
-    <version>1.1</version>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
     <name>JDALib</name>
@@ -81,5 +81,12 @@
             <version>0.9.11</version>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>VitorPaulo</id>
+            <url>https://repository.vitorpaulo.dev/releases</url>
+        </repository>
+    </distributionManagement>
 
 </project>
