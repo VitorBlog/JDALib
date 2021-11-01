@@ -1,5 +1,7 @@
 package dev.vitorpaulo.jda
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dev.vitorpaulo.jda.dao.CommandDao
 import dev.vitorpaulo.jda.handler.*
 import dev.vitorpaulo.jda.model.Command
@@ -12,6 +14,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter
 object JDALib {
 
 	lateinit var JDA: JDA
+	lateinit var gson: Gson
 	private lateinit var builder: JDABuilder
 
 	var delay = 5
@@ -31,6 +34,8 @@ object JDALib {
 			.addEventListeners(SlashCommandHandler())
 
 		CommandProcess.load()
+
+		gson = GsonBuilder().setPrettyPrinting().create()
 
 		return this
 
