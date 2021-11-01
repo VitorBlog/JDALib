@@ -1,5 +1,6 @@
 package dev.vitorpaulo.jda.model
 
+import net.dv8tion.jda.api.EmbedBuilder
 import net.dv8tion.jda.api.MessageBuilder
 import net.dv8tion.jda.api.entities.*
 import net.dv8tion.jda.api.events.Event
@@ -40,6 +41,7 @@ open class Command(
 
         if (content is String) messageBuilder.setContent(content)
         if (content is MessageEmbed) messageBuilder.setEmbed(content)
+        if (content is EmbedBuilder) messageBuilder.setEmbed(content.build())
 
         messageBuilder.setActionRows(actionRow.toList())
 
