@@ -9,16 +9,16 @@ import java.util.function.Consumer
 
 class EmoteAction(val message: Message, val user: String, val emoji: Emoji) {
 
-    lateinit var consumer: Consumer<GuildMessageReactionAddEvent>
+	lateinit var consumer: Consumer<GuildMessageReactionAddEvent>
 
-    fun queue(consumer: Consumer<GuildMessageReactionAddEvent>) {
+	fun queue(consumer: Consumer<GuildMessageReactionAddEvent>) {
 
-        this.consumer = consumer
-        EmoteDao.add(this)
+		this.consumer = consumer
+		EmoteDao.add(this)
 
-        if (emoji.isUnicode) message.addReaction(emoji.name).queue()
-        else message.addReaction(JDALib.JDA.getEmoteById(emoji.id) ?: return).queue()
+		if (emoji.isUnicode) message.addReaction(emoji.name).queue()
+		else message.addReaction(JDALib.JDA.getEmoteById(emoji.id) ?: return).queue()
 
-    }
+	}
 
 }

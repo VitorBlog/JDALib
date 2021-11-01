@@ -5,10 +5,10 @@ import java.util.function.Consumer
 
 object ButtonDao {
 
-    private val BUTTONS = hashMapOf<String, Consumer<ButtonClickEvent>>()
+	private val BUTTONS = hashMapOf<String, Consumer<ButtonClickEvent>>()
 
-    operator fun get(string: String) = BUTTONS[string]
+	operator fun get(string: String) = BUTTONS[string]
 
-    fun add(string: String, consumer: Consumer<ButtonClickEvent>) = BUTTONS.put(string, consumer)
+	fun add(string: String, consumer: Consumer<ButtonClickEvent>) = BUTTONS.put(string, consumer)
 
 }

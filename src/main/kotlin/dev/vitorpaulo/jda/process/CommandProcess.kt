@@ -7,13 +7,13 @@ import org.reflections.scanners.SubTypesScanner
 
 object CommandProcess {
 
-    fun load() {
+	fun load() {
 
-        val reflections = Reflections(SubTypesScanner())
+		val reflections = Reflections(SubTypesScanner())
 
-        val commands = reflections.getSubTypesOf(Command::class.java)
-        commands.forEach { CommandDao.add(it.newInstance()) }
+		val commands = reflections.getSubTypesOf(Command::class.java)
+		commands.forEach { CommandDao.add(it.newInstance()) }
 
-    }
+	}
 
 }

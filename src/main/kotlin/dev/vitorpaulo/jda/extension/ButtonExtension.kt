@@ -7,11 +7,11 @@ import java.util.function.Consumer
 
 object ButtonExtension {
 
-    fun Button.callback(consumer: Consumer<ButtonClickEvent>): Button {
+	fun Button.callback(consumer: Consumer<ButtonClickEvent>): Button {
 
-        ButtonDao.add(this.id ?: "404", consumer)
-        return this
+		ButtonDao.add(this.id ?: "404", consumer)
+		return this
 
-    }
+	}
 
 }

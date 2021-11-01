@@ -5,11 +5,10 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter
 
 class EmoteHandler : ListenerAdapter() {
 
-    override
-    fun onGuildMessageReactionAdd(event: GuildMessageReactionAddEvent) {
+	override
+	fun onGuildMessageReactionAdd(event: GuildMessageReactionAddEvent) {
 
 
-
-    }
+	}
 
 }

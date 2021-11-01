@@ -11,94 +11,94 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter
 
 object JDALib {
 
-    lateinit var JDA: JDA
-    private lateinit var builder: JDABuilder
+	lateinit var JDA: JDA
+	private lateinit var builder: JDABuilder
 
-    var delay = 5
-    var prefix = ";"
-    var bypassList = arrayListOf("447420204453068801")
-    var permissionMessage = ":no_entry_sign: You doesn't have the permission for that command."
-    var delayMessage = ":clock4: Hey my buddy you need to wait `{time} seconds` to use a command again."
+	var delay = 5
+	var prefix = ";"
+	var bypassList = arrayListOf("447420204453068801")
+	var permissionMessage = ":no_entry_sign: You doesn't have the permission for that command."
+	var delayMessage = ":clock4: Hey my buddy you need to wait `{time} seconds` to use a command again."
 
-    fun create(token: String): JDALib {
+	fun create(token: String): JDALib {
 
-        builder = JDABuilder
-            .createDefault(token)
-            .addEventListeners(CommandHandler())
-            .addEventListeners(ButtonHandler())
-            .addEventListeners(EmoteHandler())
-            .addEventListeners(PromptHandler())
-            .addEventListeners(SlashCommandHandler())
+		builder = JDABuilder
+			.createDefault(token)
+			.addEventListeners(CommandHandler())
+			.addEventListeners(ButtonHandler())
+			.addEventListeners(EmoteHandler())
+			.addEventListeners(PromptHandler())
+			.addEventListeners(SlashCommandHandler())
 
-        CommandProcess.load()
+		CommandProcess.load()
 
-        return this
+		return this
 
-    }
+	}
 
-    fun addEventListener(listener: ListenerAdapter): JDALib {
+	fun addEventListener(listener: ListenerAdapter): JDALib {
 
-        builder.addEventListeners(listener)
-        return this
+		builder.addEventListeners(listener)
+		return this
 
-    }
+	}
 
-    fun addCommand(command: Command): JDALib {
+	fun addCommand(command: Command): JDALib {
 
-        CommandDao.add(command)
-        return this
+		CommandDao.add(command)
+		return this
 
-    }
+	}
 
-    fun setActivity(activity: Activity): JDALib {
+	fun setActivity(activity: Activity): JDALib {
 
-        builder.setActivity(activity)
-        return this
+		builder.setActivity(activity)
+		return this
 
-    }
+	}
 
-    fun setPrefix(string: String): JDALib {
+	fun setPrefix(string: String): JDALib {
 
-        prefix = string
-        return this
+		prefix = string
+		return this
 
-    }
+	}
 
-    fun setPermissionMessage(string: String): JDALib {
+	fun setPermissionMessage(string: String): JDALib {
 
-        permissionMessage = string
-        return this
+		permissionMessage = string
+		return this
 
-    }
+	}
 
-    fun setDelayMessage(string: String): JDALib {
+	fun setDelayMessage(string: String): JDALib {
 
-        delayMessage = string
-        return this
+		delayMessage = string
+		return this
 
-    }
+	}
 
-    fun setDelay(int: Int): JDALib {
+	fun setDelay(int: Int): JDALib {
 
-        delay = int
-        return this
+		delay = int
+		return this
 
-    }
+	}
 
-    fun build(): JDA {
+	fun build(): JDA {
 
-        JDA = builder.build().awaitReady()
+		JDA = builder.build().awaitReady()
 
-        val commandList = JDA.updateCommands()
+		val commandList = JDA.updateCommands()
 
-        CommandDao.COMMANDS.filter { it.slashCommand != null }.forEach { command ->
-            commandList.addCommands(command.slashCommand)
-        }
+		CommandDao.COMMANDS.filter { it.slashCommand != null }.forEach { command ->
+			commandList.addCommands(command.slashCommand)
+		}
 
-        commandList.queue()
+		commandList.queue()
 
-        return JDA
+		return JDA
 
-    }
+	}
 
 }
