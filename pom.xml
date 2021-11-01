@@ -6,7 +6,7 @@
 
     <artifactId>JDALib</artifactId>
     <groupId>dev.vitorpaulo</groupId>
-    <version>1.2</version>
+    <version>1.2.1</version>
     <packaging>jar</packaging>
 
     <name>JDALib</name>

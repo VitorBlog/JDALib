@@ -10,12 +10,12 @@ Repository:
     <url>https://repository.vitorpaulo.dev/releases</url>
 </repository>
 ```
-Dependency: [Click Here](https://repository.vitorpaulo.dev/#/releases/dev/vitorpaulo/JDALib/)
+Dependency:
 ```xml
 <dependency>
     <groupId>dev.vitorpaulo</groupId>
     <artifactId>JDALib</artifactId>
-    <version>VERSION</version>
+    <version>1.2.1</version>
 </dependency>
 ```
 
