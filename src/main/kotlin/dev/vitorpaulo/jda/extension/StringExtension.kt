@@ -12,7 +12,9 @@ object StringExtension {
 		return if (this.length >= end) this.substring(start, end) else this
 	}
 
-	fun String.toJson(clazz: Class<*> = JsonObject::class.java) = JDALib.gson.fromJson(this, clazz)
+	fun String.toJson() = this.toJson(JsonObject::class.java)
+
+	fun <T> String.toJson(clazz: Class<T>): T = JDALib.gson.fromJson(this, clazz)
 
 	fun String.toJsonArray() = this.toJson(JsonArray::class.java)
 
