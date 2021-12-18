@@ -15,7 +15,7 @@ Dependency:
 <dependency>
     <groupId>dev.vitorpaulo</groupId>
     <artifactId>JDALib</artifactId>
-    <version>1.2.2</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
