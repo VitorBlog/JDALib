@@ -2,7 +2,8 @@ package dev.vitorpaulo.jda.handler
 
 import dev.vitorpaulo.jda.JDALib
 import dev.vitorpaulo.jda.dao.CommandDao
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
+import net.dv8tion.jda.api.entities.ChannelType
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import java.time.Duration
 import java.time.Instant
@@ -13,10 +14,10 @@ class CommandHandler : ListenerAdapter() {
 	private val delay = hashMapOf<String, Instant>()
 
 	override
-	fun onGuildMessageReceived(event: GuildMessageReceivedEvent) {
+	fun onMessageReceived(event: MessageReceivedEvent) {
 
 		val content = event.message.contentRaw
-		if (!content.startsWith(JDALib.prefix)) return
+		if (event.channelType != ChannelType.TEXT || !content.startsWith(JDALib.prefix)) return
 
 		val label = content.split(" ").first().removePrefix(JDALib.prefix)
 		val command = CommandDao[label] ?: return

@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.MessageBuilder
 import net.dv8tion.jda.api.entities.*
 import net.dv8tion.jda.api.events.Event
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.interactions.commands.build.CommandData
 import net.dv8tion.jda.api.interactions.components.ActionRow
 import net.dv8tion.jda.api.requests.restaction.MessageAction
@@ -40,8 +40,8 @@ open class Command(
 		val messageBuilder = MessageBuilder()
 
 		if (content is String) messageBuilder.setContent(content)
-		if (content is MessageEmbed) messageBuilder.setEmbed(content)
-		if (content is EmbedBuilder) messageBuilder.setEmbed(content.build())
+		if (content is MessageEmbed) messageBuilder.setEmbeds(content)
+		if (content is EmbedBuilder) messageBuilder.setEmbeds(content.build())
 
 		messageBuilder.setActionRows(actionRow.toList())
 
@@ -58,7 +58,7 @@ open class Command(
 
 	}
 
-	fun setup(event: GuildMessageReceivedEvent): Command {
+	fun setup(event: MessageReceivedEvent): Command {
 
 		this.user = event.author
 		this.message = event.message
